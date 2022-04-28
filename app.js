@@ -19,8 +19,9 @@ getUsers()
     // .then(data => showData(data))
     // .catch(err => console.log(err))
 
-const getUser = (id) => {
-    fetch(`${BASE_API}/${id}`)
+const getUser = (login) => {
+    fetch(`${BASE_API}/${login}`)
+    // console.log(login)
         .then(res => res.json())
         .then(data => showDetail(data))
         .catch(err => console.log(err))
@@ -30,7 +31,7 @@ const showData = (users) => {
     for (const user of users) {
         const { login, id, avatar_url } = user;
         queryId("container").innerHTML += `
-            <div class="card m-3" style="width: 18rem;" onclick="getUser(${id})">
+            <div class="card m-3" style="width: 18rem;" onclick="getUser('${login}')">
                 <img src="${avatar_url}" class="card-img-top" alt="Imagen de ${login}">
                 <div class="card-body">
                     <h5 class="card-title">${login}</h5>
@@ -38,19 +39,18 @@ const showData = (users) => {
             </div>
             `
     }
-    
 }
 
 const showDetail = (user) => {
     queryId("back").classList.remove("d-none")
 
-    const { name, id, avatar_url, html_url, location } = user
+    const { login, name, id, avatar_url, html_url, location } = user
     queryId("container").innerHTML = "";
         queryId("container").innerHTML = `
             <div class="card mb-3" style="max-width: 540px;">
                 <div class="row g-0">
                     <div class="col-md-4">
-                    <img src="${avatar_url}" class="img-fluid rounded-start" alt="Imagen de ${name}">
+                    <img src="${avatar_url}" class="img-fluid rounded-start" alt="Imagen de ${login}">
                     </div>
                     <div class="col-md-8">
                         <div class="card-body">
