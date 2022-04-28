@@ -1,6 +1,5 @@
 const queryId = (id) => document.getElementById(id);
 const BASE_API = "https://api.github.com/users";
-// const endpointCharacter =
 
 // const getUsers = async () => {
 //     const response = await fetch(`${BASE_API}`)
@@ -31,7 +30,7 @@ const showData = (users) => {
     for (const user of users) {
         const { login, id, avatar_url } = user;
         queryId("container").innerHTML += `
-            <div class="card m-3" style="width: 18rem;" onclick="getUser('${login}')">
+            <div class="card card-initial m-3" style="width: 18rem;" onclick="getUser('${login}')">
                 <img src="${avatar_url}" class="card-img-top" alt="Imagen de ${login}">
                 <div class="card-body">
                     <h5 class="card-title">${login}</h5>
@@ -44,7 +43,7 @@ const showData = (users) => {
 const showDetail = (user) => {
     queryId("back").classList.remove("d-none")
 
-    const { login, name, id, avatar_url, html_url, location } = user
+    const { login, name, id, avatar_url, html_url, location, blog } = user
     queryId("container").innerHTML = "";
         queryId("container").innerHTML = `
             <div class="card mb-3" style="max-width: 540px;">
@@ -55,7 +54,8 @@ const showDetail = (user) => {
                     <div class="col-md-8">
                         <div class="card-body">
                             <h5 class="card-title">${name}</h5>
-                            <a href="${html_url}" target="_blank" class="card-text">My GitHub</a>
+                            <a href="${html_url}" target="_blank" class="card-text">My GitHub</a> -
+                            <a href="${blog}" target="_blank" class="card-text">My blog</a>
                             <p class="card-text">${location}</p>
                         </div>
                     </div>
@@ -69,6 +69,3 @@ queryId("back").addEventListener('click', () => {
     getUsers()
     queryId("back").classList.add("d-none")
 })
-
-// showData()
-//     .then(data => showData(data))
